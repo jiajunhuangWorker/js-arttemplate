@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>art-template
+		高性能javascript模板引擎
+		</title>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/arttemplate.js"></script>
+	</head>
+	<body>
+		<dl>
+			<dt>1.art-template是什么模板引擎?</dt>
+			<dd>art-template是简约,超快的模板引擎,它采用作用域预声明技术来优化模板渲染速度,支持nodejs和浏览器</dd>
+			<dt>2.怎么使用art-template模板引擎?</dt>
+			<dd>art-template支持</dd>
+		</dl>
+		<div id="content"></div>
+		<dl>
+			<dt>1.条件语句</dt>			
+		</dl>
+		<div id="ifContent"></div>
+	</body>
+	<!-- id:content 测试基本用法-->
+	<script id="contentTpl" type="text/html">
+		<h1>{{title}}</h1>
+		<ul>
+			{{each list as value i}}
+				<li>索引:{{i+1}}:{{value}}</li>
+			{{/each}}
+		</ul>		
+		<p>标准语法输出:<br/>{{title}}</p>
+		<p>原始语法输出:<br/> <%= title %> </p>
+		<p>测试访问list里面的元素:<br/>{{ list[2] }} </p>
+	</script>
+	<!-- id:ifContent 测试条件语句 -->
+	<script type="text/javascript" id="ifContentTpl">
+		//第一种展示形式
+		{{if falg}}	<p>	 flag为true时展示出来 </p>{{/if}}
+		// 第二种展示形式
+		{{if falg}} true 语句显示 {{else if falg02}} 我是falg02的true {{else}} 我是falg02的false {{/if}}  
+	</script>
+	<!-- id:eachContent 循环语句 -->
+	<script type="text/javascript" id="eachContentTpl">
+		{{each list}}
+			<div>	{{$data.list[$index]}}</div>
+			( {{$index}}{{$value}} )
+		{{/each}}
+	</script>
+	<script type="text/javascript">
+		var data = {
+		    title: '标签',
+		    list:['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他'],
+		    falg:false,
+		    falg02:true
+		};
+		var html = template('contentTpl', data);
+		var html2 = template('ifContentTpl', data);
+		var html3 = template('eachContentTpl', data);
+		//基本语法
+		document.getElementById('content').innerHTML = html;
+		//条件语句
+		document.getElementById('content').innerHTML = html2;
+		//循环语句
+		document.getElementById('content').innerHTML = html3;
+		//模板继承
+	</script>
+</html>
